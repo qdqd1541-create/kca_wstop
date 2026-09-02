@@ -8,17 +8,29 @@
 (function(){
   var ua = navigator.userAgent || navigator.vendor || '';
   var isKakao = /KAKAOTALK/i.test(ua);
-  if(!isKakao) return;
   var isAndroid = /Android/i.test(ua);
-  if(isAndroid){
-    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.href);
-  } else {
+  var isSamsung = /SamsungBrowser/i.test(ua);
+
+  function showBanner(html){
     document.addEventListener('DOMContentLoaded', function(){
       var banner = document.createElement('div');
       banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#111;color:#fff;padding:14px 16px;font-size:13px;z-index:9999;text-align:center;line-height:1.6;';
-      banner.innerHTML = '카카오톡 브라우저에서는 파일 첨부 공유가 제한돼요.<br>오른쪽 아래 <b>공유 아이콘(⇧)</b> 또는 <b>「···」</b>를 눌러 <b>"Safari로 열기"</b>를 선택해 주세요.';
+      banner.innerHTML = html + '<div style="margin-top:8px;display:inline-block;padding:4px 14px;border:1px solid #fff;border-radius:12px;font-size:11px;">닫기</div>';
+      banner.querySelector('div').addEventListener('click', function(){ banner.remove(); });
       document.body.prepend(banner);
     });
+  }
+
+  if(isKakao && isAndroid){
+    var currentUrl = location.href;
+    var withoutScheme = currentUrl.replace(/^https?:\/\//, '');
+    var fallback = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(currentUrl);
+    var intentUrl = 'intent://' + withoutScheme + '#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(fallback) + ';end';
+    location.href = intentUrl;
+  } else if(isKakao){
+    showBanner('카카오톡 브라우저에서는 파일 첨부 공유가 제한돼요.<br>오른쪽 아래 <b>공유 아이콘(⇧)</b> 또는 <b>「···」</b>를 눌러 <b>"Safari로 열기"</b>를 선택해 주세요.');
+  } else if(isSamsung){
+    showBanner('삼성인터넷은 파일 첨부 공유가 제한될 수 있어요.<br>우측 하단 메뉴에서 <b>Chrome으로 열기</b>를 선택하시면 더 안정적으로 작동해요.');
   }
 })();
 </script>
