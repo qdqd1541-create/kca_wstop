@@ -607,12 +607,7 @@ document.getElementById('btnSharePdf').addEventListener('click', async ()=>{
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url), 3000);
 
-  const email = document.getElementById('s_email').value.trim();
-  const project = document.getElementById('f_project').value.trim();
-  const subject = '[작업중지 요청서] '+project+' - '+document.getElementById('f_datetime').value.slice(0,10);
-  const mailto = 'mailto:'+encodeURIComponent(email)+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(shareText);
-  showToast('이 기기는 파일 공유를 지원하지 않아 PDF를 다운로드했어요. 메일에 직접 첨부해 주세요');
-  setTimeout(()=>{ window.location.href = mailto; }, 1200);
+  alert('이 브라우저는 파일 첨부 공유를 지원하지 않아요.\n\nPDF가 다운로드 폴더에 저장됐어요. 카카오톡이나 이메일 앱을 직접 열어서 다운로드된 PDF를 첨부해 주세요.');
 });
 
 document.getElementById('btnCopy').addEventListener('click', async ()=>{
