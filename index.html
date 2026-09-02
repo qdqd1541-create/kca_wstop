@@ -4,6 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>작업중지 요청서</title>
+<script>
+(function(){
+  var ua = navigator.userAgent || navigator.vendor || '';
+  var isKakao = /KAKAOTALK/i.test(ua);
+  if(!isKakao) return;
+  var isAndroid = /Android/i.test(ua);
+  if(isAndroid){
+    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.href);
+  } else {
+    document.addEventListener('DOMContentLoaded', function(){
+      var banner = document.createElement('div');
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#111;color:#fff;padding:14px 16px;font-size:13px;z-index:9999;text-align:center;line-height:1.6;';
+      banner.innerHTML = '카카오톡 브라우저에서는 파일 첨부 공유가 제한돼요.<br>오른쪽 아래 <b>공유 아이콘(⇧)</b> 또는 <b>「···」</b>를 눌러 <b>"Safari로 열기"</b>를 선택해 주세요.';
+      document.body.prepend(banner);
+    });
+  }
+})();
+</script>
 <style>
   *{box-sizing:border-box;}
   body{
