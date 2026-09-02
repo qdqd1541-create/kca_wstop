@@ -96,7 +96,7 @@
     width:8px;height:8px;background:#111;display:inline-block;
   }
   .info-table{margin:0 6px;width:calc(100% - 12px);table-layout:fixed;}
-  .info-table td{font-size:13px;word-break:keep-all;}
+  .info-table td{font-size:13px;word-break:keep-all;padding:9px 8px;vertical-align:middle;}
   .info-label{
     background:#F7F6F2;
     text-align:center;
@@ -107,16 +107,18 @@
   }
   .info-fixed{
     font-size:14px;
-    padding:8px 10px;
   }
   .info-table input{
     width:100%;
     border:none;
     outline:none;
     font-size:14px;
-    padding:6px 4px;
+    padding:0;
     font-family:inherit;
     background:transparent;
+    height:20px;
+    line-height:20px;
+    box-sizing:border-box;
   }
   .content-box{
     border:1px solid #111;
@@ -261,8 +263,8 @@
         <td><input id="f_project" type="text" placeholder="사업명"></td>
       </tr>
       <tr>
-        <td class="info-label">요청인<br>(소속)</td>
-        <td><input id="f_requester" type="text" placeholder="예: 서울본부 이광성"></td>
+        <td class="info-label">요청인</td>
+        <td><input id="f_requester" type="text" placeholder="예: 홍길동"></td>
       </tr>
       <tr>
         <td class="info-label">요청일시</td>
@@ -347,7 +349,7 @@
         <td style="width:35%; padding:16px 12px; font-size:15px;" id="pdf_project"></td>
       </tr>
       <tr>
-        <td style="background:#F2F1EC; text-align:center; padding:16px 6px; font-size:14px;">요청인<br>(소속)</td>
+        <td style="background:#F2F1EC; text-align:center; padding:16px 6px; font-size:14px;">요청인</td>
         <td style="padding:16px 12px; font-size:15px;" id="pdf_requester"></td>
         <td style="background:#F2F1EC; text-align:center; padding:16px 6px; font-size:14px;">요청일시</td>
         <td style="padding:16px 12px; font-size:15px;" id="pdf_datetime"></td>
@@ -394,7 +396,7 @@ const storageAdapter = {
   }
 };
 
-const OWNER_FIXED = '한국방송통신전파진흥원';
+const OWNER_FIXED = '한국방송통신전파진흥원 서울본부';
 const DEFAULTS = {
   project: '무선국검사',
   requester: '',
@@ -496,7 +498,7 @@ function buildText(){
   body += '■ 사업개요\n';
   body += '사업자      : '+owner+'\n';
   body += '사업명      : '+project+'\n';
-  body += '요청인(소속) : '+requester+'\n';
+  body += '요청인      : '+requester+'\n';
   body += '요청일시    : '+dt+'\n\n';
   body += '■ 작업중지 요청내용\n\n';
   body += '작업중지 요청 사유 :\n'+reason+'\n\n';
